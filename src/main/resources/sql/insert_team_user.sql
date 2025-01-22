@@ -1,0 +1,1 @@
+INSERT INTO t_team_user (team_id, firstname, lastname) VALUES (:teamId, :firstname, :lastname)

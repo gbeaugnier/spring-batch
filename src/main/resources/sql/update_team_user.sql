@@ -1,0 +1,1 @@
+UPDATE t_team_user set firstname = :firstname, lastname = :lastname where id = :id

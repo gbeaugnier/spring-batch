@@ -1,0 +1,83 @@
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: simpleBatchDemo
+
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:sql/drop_batch_tables.sql
+
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+      schema: classpath:org/springframework/batch/core/schema-postgresql.sql
+
+  jpa:
+    show-sql: false
+    hibernate.ddl-auto: update
+
+  kafka:
+    consumer:
+      group-id: demo
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: fr.gbeaugnier.demo.springbatch.client.kafka.MinioEventDeserializer
+
+header:
+  names: "teamId,firstname,lastname"
+
+line:
+  delimiter: ","
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} | %msg%n"
+  level.root: warn
+  level.fr.gbeaugnier.demo.springbatch.aspect: info
+  level.fr.gbeaugnier.demo.springbatch.business: info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: my_password
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:29092
+
+minio:
+  client:
+    endpoint: http://localhost:9000
+    accessKey: wf5dcLrX5QGHeWAqjXi3
+    secretKey: fzsxO5Ujd9WxA5z6PTTBKuD7L5EcHpjm6gPKKH9Q
+
+---
+spring:
+  config:
+    activate:
+      on-profile: demo
+
+  datasource:
+    url: jdbc:postgresql://db:5432/postgres
+    username: postgres
+    password: my_password
+
+  kafka:
+    consumer:
+      bootstrap-servers: broker:9092
+
+minio:
+  client:
+    endpoint: http://bucket:9000
+    accessKey: ${MINIO_ACCESS_KEY}
+    secretKey: ${MINIO_SECRET_KEY}
