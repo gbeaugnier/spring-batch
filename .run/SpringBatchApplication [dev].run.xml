@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="SpringBatchApplication [dev]" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="dev" />
-    <module name="spring-batch" />
+    <module name="batch" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="fr.gbeaugnier.demo.springbatch.SpringBatchApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
